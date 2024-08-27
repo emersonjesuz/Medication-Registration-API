@@ -1,0 +1,31 @@
+version: '3'
+services:
+  # Serviço para o MongoDB
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  # Serviço para o aplicativo NestJS
+  app:
+    build: .
+    container_name: nestjs-app
+    ports:
+      - '3000:3000'
+    environment:
+      MONGO_URI: mongodb://admin:password@mongodb:27017/nestdb?authSource=admin
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/app
+    command: npm run start:dev
+
+volumes:
+  mongo_data:
+    driver: local
