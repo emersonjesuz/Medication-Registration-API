@@ -1,85 +1,137 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+## Descrição
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+#### Medication Registration api
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+È uma API RESTful, desenvolvida com NestJS, que fornece recursos para gerenciar o estoque de uma farmcia, incluindo um sistema de autentica o e gerenciamento de medicamentos.
 
-## Description
+## Tecnologias utilizadas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [NestJS](https://nestjs.com/) - Framework para construir aplica es server-side
+- [TypeScript](https://www.typescriptlang.org/) - Linguagem de programao para desenvolvimento
+- [Bcrypt](https://www.npmjs.com/package/bcrypt) - Biblioteca para criptografar senhas
+- [JsonWebServer](https://www.npmjs.com/package/jsonwebtoken) - Biblioteca para gerar e verificar tokens JWT
+- [Mongoose](https://mongoosejs.com/) - Biblioteca para interagir com o banco de dados MongoDB
+- [Zod](https://zod.dev/) - Biblioteca para validao de dados
+- [Docker](https://www.docker.com/) - Ferramenta para containerizar aplica es
 
-## Project setup
+## Configura o do projeto
+
+Para executar o projeto, execute os seguintes comandos:
 
 ```bash
+
+# rodar o docker
+$ docker-compose up -d
+
+#instalar
 $ npm install
-```
 
-## Compile and run the project
+#buildar
+$ npm run build
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
+# inicializar
 $ npm run start:prod
 ```
 
-## Run tests
+## Endpoints
 
-```bash
-# unit tests
-$ npm run test
+### Autentica o
 
-# e2e tests
-$ npm run test:e2e
+- `POST /auth` - Realiza o login do usurio e retorna um token JWT
 
-# test coverage
-$ npm run test:cov
-```
+  - senha: admin
+  - email: admin@email.com
 
-## Resources
+  caso de sucesso:
 
-Check out a few resources that may come in handy when working with NestJS:
+  - token
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+  caso de erro:
 
-## Support
+  - message
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Medicamentos
 
-## Stay in touch
+- `POST /medications` - Cria um novo medicamento
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  - corpo da requisição :
+    - name: string
+    - label: string
+    - code: string
+    - price: number
+    - isGeneric: boolean
+    - isReciep: boolean
 
-## License
+  caso de sucesso:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+  - name: string
+  - label: string
+  - code: string
+  - price: number
+  - isGeneric: boolean
+  - isReciep: boolean
+
+  caso de erro:
+
+  - message
+
+- `GET /medications` - Retorna todos os medicamentos
+
+  - caso de sucesso:
+    -- name: string
+
+    - label: string
+    - code: string
+    - price: number
+    - isGeneric: boolean
+    - isReciep: boolean
+
+  - caso de erro:
+    - message
+
+- `GET /medications/:code` - Retorna o medicamento com o c digo informado
+
+  - caso de sucesso:
+
+    - lista:
+      - name: string
+      - label: string
+      - code: string
+      - price: number
+      - isGeneric: boolean
+      - isReciep: boolean
+
+  - caso de erro:
+    - message
+
+- `PUT /medications/:code` - Atualiza o medicamento com o c digo informado
+
+  - corpo da requisição:
+    - name: string
+    - label: string
+    - code: string
+    - price: number
+    - isGeneric: boolean
+    - isReciep: boolean
+
+  caso de sucesso:
+
+  - name: string
+    - label: string
+    - code: string
+    - price: number
+    - isGeneric: boolean
+    - isReciep: boolean
+
+  caso de erro:
+
+  - message
+
+- `DELETE /medications/:code` - Exclui o medicamento com o c digo informado
+
+  - caso de sucesso:
+
+    - message: "Medicamento excluido com sucesso"
+
+  - caso de erro:
+    - message
