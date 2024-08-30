@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from './auth.service';
-import { ZodValidationPipe } from './pipes/zodValidation.pipe';
+import { ZodValidationPipe } from '../pipes/zodValidation.pipe';
 import { createUserSchema } from './zodSchemas/createUser.schemas';
 
 @Controller('auth')
