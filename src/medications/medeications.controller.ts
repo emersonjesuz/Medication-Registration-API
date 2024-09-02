@@ -8,12 +8,15 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { MedicationsService } from './medications.service';
 import { ZodValidationPipe } from '../pipes/zodValidation.pipe';
 import { createMedicationSchema } from './zodSchemas/createMedication.schemas';
+import { JwtGuard } from '../auth/jwt.guard';
 
 @Controller('medications')
+@UseGuards(JwtGuard)
 export class MedicationsController {
   constructor(private readonly medicationsService: MedicationsService) {}
 
