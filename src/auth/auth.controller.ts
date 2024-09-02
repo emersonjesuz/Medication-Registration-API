@@ -4,22 +4,27 @@ import {
   Controller,
   NotFoundException,
   Post,
+  Res,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from './auth.service';
 import { ZodValidationPipe } from '../pipes/zodValidation.pipe';
 import { createUserSchema } from './zodSchemas/createUser.schemas';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post()
-  async login(@Body(new ZodValidationPipe(createUserSchema)) body: any) {
+  async login(
+    @Body(new ZodValidationPipe(createUserSchema)) body: any,
+    @Res() res: Response,
+  ) {
     const { email, password } = body;
 
     // get user by email
-    const user = await this.authService.login(email);
+    const { access_token, user } = await this.authService.login(email);
 
     // verify if user exists
     if (!user) {
@@ -36,6 +41,12 @@ export class AuthController {
       });
     }
 
-    return user;
+    res.status(200).json({
+      access_token,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+    });
   }
 }
