@@ -16,6 +16,10 @@
 
 ## Configura o do projeto
 
+Para utilizar a API, necessrio criar um arquivo `.env` na raiz do projeto contendo o seguinte variavel:
+
+- `JWT_SECRET`: para senha de segurança a jwt
+
 Para executar o projeto, execute os seguintes comandos:
 
 ```bash
